@@ -45,6 +45,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 const authRouter = require('./src/routers/auth_router');
+const yonetimRouter = require('./src/routers/yonetim_router');
 
 // formDan gelen değerlerin okunabilmesi için
 // bu olmazsa formdan veri gelmiyor
@@ -75,7 +76,8 @@ app.get('/', (req, res) => {
     })
 });
 
-app.use('/', authRouter)
+app.use('/', authRouter);
+app.use('/yonetim', yonetimRouter);
 
 
 app.listen(process.env.PORT, () => {
