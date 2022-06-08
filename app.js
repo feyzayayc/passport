@@ -8,8 +8,19 @@ const passport = require('passport');
 // db bağlantısı
 require('./src/config/database');
 
-// sessin ve flash message
 
+// template engine ayarları
+const path = require('path');
+const ejs = require('ejs');
+const expressLayouts = require('express-ejs-layouts');
+app.use(express.static('public'));
+app.use(expressLayouts);
+app.set('view engine', 'ejs');
+app.set("views", path.resolve(__dirname, './src/views'));
+// default olarak views klasörü ile çalıştığı için klasörün yerini belirttik
+
+
+// sessin ve flash message
 const store = new MongoDBStore({
     // uri: 'mongodb://localhost:27017/connect_mongodb_session_test',
     uri: 'mongodb://localhost:27017/proje',
@@ -50,16 +61,6 @@ const yonetimRouter = require('./src/routers/yonetim_router');
 // formDan gelen değerlerin okunabilmesi için
 // bu olmazsa formdan veri gelmiyor
 app.use(express.urlencoded({ extended: true }));
-
-// template engine ayarları
-const path = require('path');
-const ejs = require('ejs');
-const expressLayouts = require('express-ejs-layouts');
-app.use(express.static('public'));
-app.use(expressLayouts);
-app.set('view engine', 'ejs');
-app.set("views", path.resolve(__dirname, './src/views'));
-// default olarak views klasörü ile çalıştığı için klasörün yerini belirttik
 
 let sayac = 0;
 

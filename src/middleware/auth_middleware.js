@@ -1,11 +1,20 @@
-const oturumAcilmis = (req,res, next)=>{
-    if(req.isAuthenticated()){
+const oturumAcilmis = (req, res, next) => {
+    if (req.isAuthenticated()) {
         return next();
     }
-    else{
+    else {
         req.flash('error', ['Lütfen önce oturum açın'])
         res.redirect('/login')
     }
 }
+const oturumAcilmamis = (req, res, next) => {
+    if (!req.isAuthenticated()) {
+        return next();
+    }
+    else {
+        res.redirect('/yonetim')
+    }
+}
 
-module.exports ={oturumAcilmis}
+
+module.exports = { oturumAcilmis, oturumAcilmamis }

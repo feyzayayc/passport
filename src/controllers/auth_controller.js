@@ -80,6 +80,7 @@ const register = async (req, res, next) => {
 }
 
 
+
 const forgetPasswordFormunuGoster = (req, res, next) => {
     res.render('forget_password', { layout: './layout/auth_layouts' })
 }
@@ -87,11 +88,27 @@ const forgetPassword = (req, res, next) => {
     console.log(req.body)
     res.render('forget_password', { layout: './layout/auth_layouts' })
 }
+
+const logout = (req, res, next) => {
+    // req.session.destroy((err) => {
+
+    // })
+    req.logout(function (err) {
+        if (err) {
+            return next(err);
+        }
+        req.flash('success_message',[{ msg:'Başarılı bir çıkış yapıldı'}])
+        res.clearCookie('connect.sid');
+        res.redirect('/login');
+    });
+};
+
 module.exports = {
     loginFormunuGoster,
     login,
     registerFormunuGoster,
     register,
     forgetPasswordFormunuGoster,
-    forgetPassword
+    forgetPassword,
+    logout
 }
